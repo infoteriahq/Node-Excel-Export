@@ -1,6 +1,6 @@
 {
   "name": "excel-export-impr",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Data set export to Excel xlsx file (Hyperlinks support)",
   "main": "index.js",
   "scripts": {

@@ -6,7 +6,7 @@ A simple node.js module for exporting data set to Excel xlsx file.
 Setup configuration object before passing in the execute method. **cols** is an array for column definition. Column definition should have caption and type properties. beforeCellWrite callback is optional. beforeCellWrite is called with row and cell data.  The return value from beforeCellWrite is what get written to the cell . Supported valid types are string, date, bool and number.  **rows** is the data to be export. It is an Array of Array (row). Each row should be the same length of cols. 
 
     var express = require('express');
-	var nodeExcel = require('excel-export');
+	var nodeExcel = require('excel-export-impr');
 	var app = express();
 
 	app.get('/Excel', function(req, res){
