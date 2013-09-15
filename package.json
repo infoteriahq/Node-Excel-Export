@@ -1,23 +1,34 @@
 {
-  "name": "excel-export",
-  "version": "0.1.2",
-  "description": "Simple data set export to Excel xlsx file",
+  "name": "excel-export-impr",
+  "version": "0.4.0",
+  "description": "Data set export to Excel xlsx file (Hyperlinks support)",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/main"
   },
-  "repository": "https://github.com/functionscope/Node-Excel-Export",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Grievoushead/Node-Excel-Export"
+  },
   "keywords": [
     "Excel",
     "xlsx"
   ],
-  "author": "Ber-Lin Lai <berlin.lai@gmail.com>",
+  "author": "Grievoushead <sergiy.kozachenko@gmail.com>",
   "license": "BSD",
-  "dependencies":{
-	 "node-zip":"1.x"  
+  "dependencies": {
+    "node-zip": "1.x"
   },
   "devDependencies": {
-     "mocha": "",
-     "should": ""
-  }  
+    "mocha": "",
+    "should": ""
+  },
+  "dist": {
+    "shasum": "f974e94ef4db8f4230759a5b1c71f975ccc95241"
+  },
+  "_from": "excel-export@",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  }
 }

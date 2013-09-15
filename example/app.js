@@ -8,11 +8,12 @@ app.get('/Excel', function(req, res){
 	{caption:'string', type:'string'},
 	{caption:'date', type:'date'},
 	{caption:'bool', type:'bool'},
-	{caption:'number', type:'number'}				
+	{caption:'number', type:'number'},
+    {caption:'link', type:'hyperlink'}
   ];
   conf.rows = [
-	['pi', (new Date(2013, 4, 1)).getJulian(), true, 3.14],
-	["e", (new Date(2012, 4, 1)).getJulian(), false, 2.7182]
+	['pi', (new Date(2013, 4, 1)).getJulian(), true, 3.14, { text: 'Google', href: 'http://www.google.com'}],
+	["e", (new Date(2012, 4, 1)).getJulian(), false, 2.7182, { text: 'Google', href: 'http://www.google.com'}]
   ];
   var result = nodeExcel.execute(conf);
   res.setHeader('Content-Type', 'application/vnd.openxmlformats');
