@@ -165,7 +165,7 @@ var addHyperlinkCol = function(cellRef, value){
     if (typeof value ==='object'){
         var href = value.href;
         value.text = value.text.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;");
-
+	href = href.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;");
         // Add to sheet hyperlinks section and Relationships file section
         //'<x:hyperlinks>' +
         //'<x:hyperlink ref="A1" r:id="rId1"/>' +
