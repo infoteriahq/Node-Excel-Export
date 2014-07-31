@@ -57,6 +57,8 @@ exports.execute = function(config){
 		row ="";
 	
 	shareStrings = new Array();
+        sheetHyperlinksBack = '</x:hyperlinks>';
+        sheetRelationshipsBack = '</Relationships>';
 	//first row for column caption
 	row = ['<x:row r="1" spans="1:', cols.length , '">'].join('');
   var k;
