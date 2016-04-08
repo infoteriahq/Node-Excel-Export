@@ -1,3 +1,6 @@
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Grievoushead/node-excel-export/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
 # excel-export-impr #
 
 Improved node.js module for exporting data set to Excel xlsx file. Hyperlink type support.
