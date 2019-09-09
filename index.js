@@ -46,6 +46,10 @@ exports.executeAsync = function(config, callBack){
 }
 
 exports.execute = function(config){
+    sheetHyperlinksBack = '</x:hyperlinks>';
+    hyperlinksCount = 0;
+    sheetRelationshipsBack = '</Relationships>';
+
 	var cols = config.cols,
 		data = config.rows;
 	
