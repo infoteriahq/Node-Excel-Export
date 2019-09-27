@@ -29,7 +29,8 @@ var sheetHyperlinksFront = '<x:hyperlinks>';
 var sheetHyperlinksBack = '</x:hyperlinks>';
 var hyperlinksCount = 0;
 
-var sharedStringsFront = '<?xml version="1.0" encoding="UTF-8"?><x:sst xmlns:x="http://schemas.openxmlformats.org/spreadsheetml/2006/main" uniqueCount="$count" count="$count">';
+var sharedStringsFrontOriginal = '<?xml version="1.0" encoding="UTF-8"?><x:sst xmlns:x="http://schemas.openxmlformats.org/spreadsheetml/2006/main" uniqueCount="$count" count="$count">';
+var sharedStringsFront = sharedStringsFrontOriginal;
 var sharedStringsBack = '</x:sst>';
 var shareStrings;
 
@@ -49,6 +50,7 @@ exports.execute = function(config){
     sheetHyperlinksBack = '</x:hyperlinks>';
     hyperlinksCount = 0;
     sheetRelationshipsBack = '</Relationships>';
+    sharedStringsFront = sharedStringsFrontOriginal;
 
 	var cols = config.cols,
 		data = config.rows;
