@@ -40,7 +40,7 @@ var sheetRelationshipsBack = '</Relationships>';
 
 exports.executeAsync = function(config, callBack){
 	return process.nextTick(function(){
-		var r = exports.execute(config);		
+		var r = exports.execute(config);
 		callBack(r);
 	});
 }
@@ -52,14 +52,14 @@ exports.execute = function(config){
 
 	var cols = config.cols,
 		data = config.rows;
-	
+
 	var xlsx = new JSZip(templateXLSX, { base64: true, checkCRC32: false }),
 		sheet = xlsx.file("xl/worksheets/sheet.xml"),
         sheet_rels = xlsx.file("xl/worksheets/_rels/sheet.xml.rels"),
 		sharedStringsXml = xlsx.file("xl/sharedStrings.xml"),
 		rows = "",
 		row ="";
-	
+
 	shareStrings = new Array();
         sheetHyperlinksBack = '</x:hyperlinks>';
         sheetRelationshipsBack = '</Relationships>';
@@ -71,8 +71,8 @@ exports.execute = function(config){
 		row = [row,  addStringCol(getColumnLetter(k+1)+1, cols[k].caption)].join('');
 	}
 	row = [row , '</x:row>'].join('');
-	rows = [rows , row].join('');	
-	
+	rows = [rows , row].join('');
+
 	//fill in data
   var i, j, r, cellData;
 	for (i=0;i<data.length;i++)
@@ -83,8 +83,8 @@ exports.execute = function(config){
 		{
       cellData = r[j];
       if (typeof cols[j].beforeCellWrite === 'function')
-        cellData = cols[j].beforeCellWrite(r, cellData);    
-    
+        cellData = cols[j].beforeCellWrite(r, cellData);
+
 			switch(cols[j].type)
 			{
 				case 'number':
@@ -105,7 +105,7 @@ exports.execute = function(config){
 		}
 		row = [row, '</x:row>'].join('');
 		rows = [rows , row].join('');
-	}	
+	}
 	xlsx.remove(sheet.name);
 
     // Clear sheet_rels template
@@ -124,7 +124,7 @@ exports.execute = function(config){
 		sharedStringsFront = sharedStringsFront.replace(/\$count/g, shareStrings.length);
 		xlsx.file(sharedStringsXml.name, sharedStringsFront + convertShareStrings() + sharedStringsBack);
 	}
-	
+
 	var r = xlsx.generate({ base64: false, compression: "DEFLATE" });
 	delete xlsx;
 	delete shareStrings;
@@ -152,13 +152,25 @@ var addBoolCol = function(cellRef, value){
 	  value = 0;
 	return ['<x:c r="',cellRef,'" s="0" t="b"><x:v>',value,'</x:v></x:c>'].join('');
 };
+
+function escapeString(s) {
+    return escapeXString(s.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;"));
+}
+
+function escapeXString(s) {
+    function encode(s) {
+        return `_x${ ('0000' + s.codePointAt(0).toString(16).toUpperCase()).substr(-4) }_`;
+    }
+    return s.replace(/_x/g, "_x005F_x").replace(/[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-\u10FFFF]/g, encode);
+}
+
 var addStringCol = function(cellRef, value){
 	if (value===null)
 		return "";
   if (typeof value ==='string'){
-    value = value.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;");
+    value = escapeString(value);
   }
-  
+
 	if (shareStrings.indexOf(value) < 0){
 		shareStrings.push(value);
 	}
@@ -170,8 +182,8 @@ var addHyperlinkCol = function(cellRef, value){
         return "";
     if (typeof value ==='object'){
         var href = value.href;
-        value.text = value.text.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;");
-	href = href.replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/>/g, "&gt;").replace(/</g, "&lt;");
+        value.text = escapeString(value.text);
+	href = escapeString(href);
         // Add to sheet hyperlinks section and Relationships file section
         //'<x:hyperlinks>' +
         //'<x:hyperlink ref="A1" r:id="rId1"/>' +
@@ -198,7 +210,7 @@ var addHyperlinkCol = function(cellRef, value){
 var convertShareStrings = function(){
 	var r = "", i;
 	for (i=0;i<shareStrings.length;i++)
-	{	
+	{
 		r = [r , "<x:si><x:t>",shareStrings[i],"</x:t></x:si>"].join('');
 	}
 	return r;
